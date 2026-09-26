@@ -6,12 +6,14 @@ import { generateDayBlocks, getBlocksForDate, regenerateKeepingLogged, shiftBloc
 import { addDays, daysUntil, fromMin, longDate, nowMin, shortDate, todayStr, toMin, uid, weekDates } from "../lib/time";
 import DayView from "../components/DayView";
 import Progress from "../components/Progress";
+import LifeLog from "../components/LifeLog";
 import Tests from "../components/Tests";
 import Settings from "../components/Settings";
 import { TimerConsole, TimerPanel, useTimer } from "../components/Timer";
 
 const TABS = [
   { id: "day", label: "Plan" },
+  { id: "log", label: "Life log" },
   { id: "progress", label: "Progress" },
   { id: "tests", label: "Tests" },
   { id: "settings", label: "Settings" },
@@ -292,6 +294,10 @@ export default function HomePage() {
             <TimerPanel api={timerApi} defaultMinutes={state.settings.sessionMins} />
           </DayView>
         </div>
+      )}
+
+      {tab === "log" && (
+        <LifeLog state={state} date={date} onDateChange={setDate} onGoToPlan={() => setTab("day")} update={update} />
       )}
 
       {tab === "progress" && (
